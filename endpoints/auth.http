@@ -8,8 +8,8 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "",
-  "password": "refwrfrf",
+  "username": "dwerdd",
+  "password": "",
   "email": "fwef@yahoo.com",
   "avatarColor": "dwded",
   "avatarImage": "<add-a-base64-encoded-string>"

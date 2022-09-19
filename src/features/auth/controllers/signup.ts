@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { joiValidation } from '@global/decorators/joi-validation.decorators';
 import { signupSchema } from '@auth/schemas/signup';
 import { IUserDocument } from '@user/interfaces/user.interface';
@@ -19,7 +19,7 @@ import { BadRequestError } from '@global/helpers/error-handler';
 
 export class SignUp {
   @joiValidation(signupSchema)
-  public async create(req: Request, res: Response): Promise<void> {
+  public async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { username, email, password, avatarColor, avatarImage } = req.body;
     const checkIfUserExist: IAuthDocument = await authService.getUserByUsernameOrEmail(username, email);
     if (checkIfUserExist) {
@@ -37,6 +37,7 @@ export class SignUp {
       password,
       avatarColor
     });
+    console.log('got inside controller');
 
     // // Add to redis cache
     // const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
@@ -50,7 +51,7 @@ export class SignUp {
     // const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
     // req.session = { jwt: userJwt };
     // res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
-    res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully' });
+    // res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully' });
   }
 
   private signToken(data: IAuthDocument, userObjectId: ObjectId): string {

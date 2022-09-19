@@ -13,7 +13,7 @@ class Application {
     const app: Express = express();
     const server: ChattyServer = new ChattyServer(app);
     server.start();
-    Application.handleExit();
+    // Application.handleExit();
   }
 
   private loadConfig(): void {

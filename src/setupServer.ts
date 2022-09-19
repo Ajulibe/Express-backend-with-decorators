@@ -67,6 +67,7 @@ export class ChattyServer {
   private apiMonitoring(app: Application): void {}
 
   private globalErrorHandler(app: Application): void {
+    console.log('called the error handler');
     /* catching url requests that dont exist */
     app.all('*', (req: Request, res: Response) => {
       res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` });
@@ -78,6 +79,17 @@ export class ChattyServer {
       if (error instanceof CustomError) {
         return res.status(error.statusCode).json(error.serializeErrors());
       }
+
+      // else {
+      //   const status = HTTP_STATUS.BAD_REQUEST;
+      //   console.error(error);
+      //   res.status(status).send({
+      //     status,
+      //     success: false,
+      //     message: error.message ?? 'Something went wrong.'
+      //   });
+      // }
+
       next();
     });
   }
