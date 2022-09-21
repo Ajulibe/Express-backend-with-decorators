@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
 import cloudinary from 'cloudinary';
+import { ObjectSchema } from 'joi';
 
 dotenv.config({});
 
@@ -46,6 +47,13 @@ class Config {
   }
 
   public validateConfig(): void {
+    //validation with JOI
+    // const { error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(process.env);
+    // if (error) {
+    //   throw new Error(`Config validation error: ${error.message}`);
+    // }
+
+    // manual validation
     for (const [key, value] of Object.entries(this)) {
       if (value === undefined) {
         throw new Error(`Configuration ${key} is undefined.`);

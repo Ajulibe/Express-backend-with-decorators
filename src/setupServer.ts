@@ -13,6 +13,7 @@ import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
 import applicationRoutes from '@root/routes';
 import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
+import morgan from '@global/helpers/morgan';
 
 const SERVER_PORT = 3000;
 const log: Logger = config.createLogger('server');
@@ -61,13 +62,18 @@ export class ChattyServer {
   }
 
   private routesMiddleware(app: Application): void {
+    //logging for routes
+    if (config.NODE_ENV !== 'test') {
+      app.use(morgan.successHandler);
+      app.use(morgan.errorHandler);
+    }
+
     applicationRoutes(app);
   }
 
   private apiMonitoring(app: Application): void {}
 
   private globalErrorHandler(app: Application): void {
-    console.log('called the error handler');
     /* catching url requests that dont exist */
     app.all('*', (req: Request, res: Response) => {
       res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` });
@@ -79,17 +85,6 @@ export class ChattyServer {
       if (error instanceof CustomError) {
         return res.status(error.statusCode).json(error.serializeErrors());
       }
-
-      // else {
-      //   const status = HTTP_STATUS.BAD_REQUEST;
-      //   console.error(error);
-      //   res.status(status).send({
-      //     status,
-      //     success: false,
-      //     message: error.message ?? 'Something went wrong.'
-      //   });
-      // }
-
       next();
     });
   }
