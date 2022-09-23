@@ -16,12 +16,11 @@ export class SignIn {
     const { username, password } = req.body;
     const existingUser: IAuthDocument = await authService.getAuthUserByUsername(username);
     if (!existingUser) {
-      next(new BadRequestError("User doesn't exist"));
+      return next(new BadRequestError("User doesn't exist"));
     }
-
     const passwordsMatch: boolean = await existingUser.comparePassword(password);
     if (!passwordsMatch) {
-      next(new BadRequestError('Invalid credentials'));
+      return next(new BadRequestError('Invalid credentials'));
     }
     const user: IUserDocument = await userService.getUserByAuthId(`${existingUser._id}`);
     const userJwt: string = JWT.sign(
@@ -34,7 +33,7 @@ export class SignIn {
       },
       config.JWT_TOKEN!
     );
-    res.cookie('session', userJwt);
+    req.session = { jwt: userJwt };
     const userDocument: IUserDocument = {
       ...user,
       authId: existingUser!._id,

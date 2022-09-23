@@ -1,6 +1,8 @@
 @baseUrl = http://localhost:3000
 @urlPath = api/v1
 
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzJiMTQ4MzZmOGJmYjVmYzA5YjA4OWEiLCJ1SWQiOiI4ODQ5NTczNDI3ODAiLCJlbWFpbCI6ImZ3ZWZAeWFob28uY29tIiwidXNlcm5hbWUiOiJCZW5qaSIsImF2YXRhckNvbG9yIjoiZHdkZWQiLCJpYXQiOjE2NjM5NDEyNTN9.gVlvpkHpfIAyID4keGnjJXqV_6jyUe1d5G0QLlmtmDA
+
 ###
 POST {{baseUrl}}/{{urlPath}}/signup
 Content-Type: application/json
@@ -26,3 +28,17 @@ withCredentials: true
   "username": "benji",
   "password": "r3fcrfrf"
 }
+
+###
+GET {{baseUrl}}/{{urlPath}}/signout
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/currentuser
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+Authorization: Bearer {{accessToken}}

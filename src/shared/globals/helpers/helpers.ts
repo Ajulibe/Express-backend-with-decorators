@@ -1,12 +1,10 @@
+import { Request } from 'express';
 export class Helpers {
   static firstLetterUppercase(str: string): string {
     const valueString = str.toLowerCase();
     return valueString
       .split(' ')
-      .map(
-        (value: string) =>
-          `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`
-      )
+      .map((value: string) => `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`)
       .join(' ');
   }
 
@@ -26,17 +24,17 @@ export class Helpers {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseJson(prop: string): any {
+    let parsedObject;
     try {
-      JSON.parse(prop);
+      parsedObject = JSON.parse(prop);
     } catch (error) {
       return prop;
     }
-    return JSON.parse(prop);
+    return parsedObject;
   }
 
   static isDataURL(value: string): boolean {
-    const dataUrlRegex =
-      /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\\/?%\s]*)\s*$/i;
+    const dataUrlRegex = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\\/?%\s]*)\s*$/i;
     return dataUrlRegex.test(value);
   }
 
@@ -50,5 +48,10 @@ export class Helpers {
 
   static escapeRegex(text: string): string {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  }
+
+  static getTokenFromHeader(req: Request) {
+    const token = req.header('Authorization')!.replace('Bearer ', '');
+    return token;
   }
 }

@@ -52,7 +52,7 @@ export class SignUp {
     authQueue.addAuthUserJob('addAuthUserToDB', { value: authData });
     userQueue.addUserJob('addUserToDB', { value: userDataForCache });
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
-    res.cookie('session', userJwt);
+    req.session = { jwt: userJwt };
     res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
 

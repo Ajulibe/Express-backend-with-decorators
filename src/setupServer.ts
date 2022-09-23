@@ -35,14 +35,15 @@ export class ChattyServer {
   }
 
   private securityMiddleware(app: Application): void {
-    cookieSession({
-      name: 'session',
-      keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-      maxAge: 24 * 7 * 3600000,
-      secure: config.NODE_ENV !== 'development',
-      sameSite: 'none' // comment this line when running the server locally
-    });
-
+    app.use(
+      cookieSession({
+        name: 'session',
+        keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
+        maxAge: 24 * 7 * 3600000,
+        secure: config.NODE_ENV !== 'development',
+        sameSite: 'none' // comment this line when running the server locally
+      })
+    );
     app.use(hpp());
     app.use(helmet());
     app.use(
@@ -85,7 +86,12 @@ export class ChattyServer {
       if (error instanceof CustomError) {
         return res.status(error.statusCode).json(error.serializeErrors());
       }
-      next();
+
+      res.status(HTTP_STATUS.BAD_REQUEST).send({
+        status: 'BAD_REQUEST',
+        message: error.message ?? 'Something went wrong.',
+        statusCode: HTTP_STATUS.BAD_REQUEST
+      });
     });
   }
 

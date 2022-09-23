@@ -11,6 +11,7 @@ class Config {
   public NODE_ENV: string | undefined;
   public SECRET_KEY_ONE: string | undefined;
   public SECRET_KEY_TWO: string | undefined;
+  public TOKEN_EXPIRY: string | undefined;
   public CLIENT_URL: string | undefined;
   public REDIS_HOST: string | undefined;
   public CLOUD_NAME: string | undefined;
@@ -40,6 +41,7 @@ class Config {
     this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
     this.SENDGRID_SENDER = process.env.SENDGRID_SENDER || '';
     this.EC2_URL = process.env.EC2_URL || '';
+    this.TOKEN_EXPIRY = process.env.TOKEN_EXPIRY || '';
   }
 
   public createLogger(name: string): bunyan {
