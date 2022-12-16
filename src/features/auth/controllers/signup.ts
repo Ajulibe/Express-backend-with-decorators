@@ -82,7 +82,7 @@ export class SignUp {
     } as IAuthDocument;
   }
 
-  private userData(data: IAuthDocument, userObjectId: ObjectId): IUserDocument {
+  public userData(data: IAuthDocument, userObjectId: ObjectId): IUserDocument {
     const { _id, username, email, uId, password, avatarColor } = data;
     return {
       _id: userObjectId,

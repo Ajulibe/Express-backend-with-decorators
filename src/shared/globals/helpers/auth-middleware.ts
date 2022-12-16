@@ -7,7 +7,6 @@ import { Helpers } from '@global/helpers/helpers';
 
 export class AuthMiddleware {
   public verifyUser(req: Request, res: Response, next: NextFunction): void {
-    console.log(req.session, 'session');
     if (!req.session?.jwt) {
       throw new NotAuthorizedError('Token is not available. Please login again.');
     }

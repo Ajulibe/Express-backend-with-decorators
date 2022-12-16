@@ -25,7 +25,8 @@ export class CurrentUser {
     const existingUser: IUserDocument = cachedUser ? cachedUser : await userService.getUserById(`${req.currentUser!.userId}`);
     if (Object.keys(existingUser).length) {
       isUser = true;
-      token = Helpers.getTokenFromHeader(req);
+      token = req.session?.jwt;
+      // token = Helpers.getTokenFromHeader(req);
       user = existingUser;
     }
     res.status(HTTP_STATUS.OK).json({ isUser, user, token });

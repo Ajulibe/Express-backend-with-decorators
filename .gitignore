@@ -142,3 +142,6 @@ build
 
 # SvelteKit build / generate output
 .svelte-kit
+
+#prevent .idea from commiting
+.idea

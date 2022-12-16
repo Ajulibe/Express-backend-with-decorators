@@ -26,7 +26,7 @@ withCredentials: true
 
 {
   "username": "benji",
-  "password": "r3fcrfrf"
+  "password": "r3fcrfrg"
 }
 
 ###
@@ -41,4 +41,25 @@ GET {{baseUrl}}/{{urlPath}}/currentuser
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
-Authorization: Bearer {{accessToken}}
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/forgot-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "email": "fwef@yahoo.com"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/reset-password/9654029d6eff86ebe2537c98cf0b61f25041eca1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "password": "r3fcrfrg",
+  "confirmPassword": "r3fcrfrg"
+}

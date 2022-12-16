@@ -1,5 +1,8 @@
+SETTING UP REDIS
 to start up the redis server use the command: redis-server
 to access the gui for redis use the command: redis-commander
+
+TO SEE ALL JOBS
 to access bull dashboard go to: http://localhost:3000/queues
 
 

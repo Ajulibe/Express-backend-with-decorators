@@ -74,6 +74,9 @@ export class ChattyServer {
 
   private apiMonitoring(app: Application): void {}
 
+  /*=============================================
+  =         Global Error middleware            =
+  =============================================*/
   private globalErrorHandler(app: Application): void {
     /* catching url requests that dont exist */
     app.all('*', (req: Request, res: Response) => {
@@ -98,7 +101,6 @@ export class ChattyServer {
   /*=============================================
  =            Server setup            =
  =============================================*/
-
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app);
