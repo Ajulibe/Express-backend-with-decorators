@@ -8,14 +8,13 @@ import { IAuthJob } from '@auth/interfaces/auth.interface';
 import { IEmailJob, IUserJob } from '@user/interfaces/user.interface';
 import { IPostJobData } from '@post/interfaces/post.interface';
 import { IReactionJob } from '@reaction/interfaces/reaction.interface';
-// import { ICommentJob } from '@comment/interfaces/comment.interface';
+import { ICommentJob } from '@comment/interfaces/comment.interface';
 // import { IBlockedUserJobData, IFollowerJobData } from '@follower/interfaces/follower.interface';
 // import { INotificationJobData } from '@notification/interfaces/notification.interface';
 // import { IFileImageJobData } from '@image/interfaces/image.interface';
 // import { IChatJobData, IMessageData } from '@chat/interfaces/chat.interface';
 
-type IBaseJobData = IAuthJob | IEmailJob | IUserJob | IPostJobData | IReactionJob;
-// | ICommentJob
+type IBaseJobData = IAuthJob | IEmailJob | IUserJob | IPostJobData | IReactionJob | ICommentJob;
 // | IFollowerJobData
 // | IBlockedUserJobData
 // | INotificationJobData

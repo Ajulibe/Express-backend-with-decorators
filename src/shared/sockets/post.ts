@@ -1,4 +1,5 @@
 // import { ICommentDocument } from '@comment/interfaces/comment.interface';
+import { ICommentDocument } from '@comment/interfaces/comment.interface';
 import { IReactionDocument } from '@reaction/interfaces/reaction.interface';
 import { Server, Socket } from 'socket.io';
 
@@ -21,13 +22,21 @@ export class SocketIOPostHandler {
 
   public listen(): void {
     this.io.on('connection', (socket: Socket) => {
+      //this is listening for events emitted by the REACT app.
+      //it is emitted by the app when someone sends a reaction
+      //when the React app emits that, we will emmit also as a response
+      // with the data recieved from the client
       socket.on('reaction', (reaction: IReactionDocument) => {
+        //this is being emitted to all connected sockets
+        //it is sent from here to the client
         this.io.emit('update like', reaction);
       });
 
-      // socket.on('comment', (data: ICommentDocument) => {
-      //   this.io.emit('update comment', data);
-      // });
+      //this is being emitted to all connected sockets
+      //it is sent from here to the client
+      socket.on('comment', (data: ICommentDocument) => {
+        this.io.emit('update comment', data);
+      });
     });
   }
 }
