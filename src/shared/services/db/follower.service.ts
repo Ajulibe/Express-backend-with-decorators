@@ -29,6 +29,7 @@ class FollowerService {
     const users: Promise<BulkWriteResult> = UserModel.bulkWrite([
       {
         updateOne: {
+          //@ts-ignore
           filter: { _id: userId },
           update: { $inc: { followingCount: 1 } }
         }
